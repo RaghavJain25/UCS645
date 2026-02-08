@@ -1,4 +1,3 @@
-# UCS645: Parallel & Distributed Computing  
 ## Assignment 2 – Performance Evaluation of OpenMP Programs
 
 ---
