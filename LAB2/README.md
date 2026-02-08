@@ -54,10 +54,15 @@ This problem simulates a simplified molecular dynamics system where pairwise for
 - Reduction for computing total potential energy  
 - Performance evaluation across multiple thread counts  
 
-### Graphs Generated
-- Execution Time vs Number of Threads  
-- Speedup vs Number of Threads  
+## 📊 Graphs Generated
 
+- **Execution Time vs Number of Threads**
+  
+  ![Execution Time](graphs/md_time.png)
+
+- **Speedup vs Number of Threads**
+  
+  ![Speedup](graphs/md_speedup.png)
 ---
 
 ## 🔹 Question 2: Bioinformatics – Smith–Waterman DNA Sequence Alignment
