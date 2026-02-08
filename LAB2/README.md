@@ -75,9 +75,15 @@ This problem implements the **Smith–Waterman algorithm** for local DNA sequenc
 - Handling of data dependencies in dynamic programming  
 - Analysis of limited speedup due to algorithmic constraints  
 
-### Graphs Generated
-- Execution Time vs Number of Threads  
-- Speedup vs Number of Threads  
+## 📊 Graphs Generated
+
+- **Execution Time vs Number of Threads**
+  
+  ![Execution Time](graphs/md_time.png)
+
+- **Speedup vs Number of Threads**
+  
+  ![Speedup](graphs/md_speedup.png)
 
 ---
 
@@ -91,9 +97,15 @@ This problem simulates **heat diffusion on a 2D grid** using the finite differen
 - Use of separate grids to avoid race conditions  
 - Scalability analysis for compute-intensive workloads  
 
-### Graphs Generated
-- Execution Time vs Number of Threads  
-- Speedup vs Number of Threads
+## 📊 Graphs Generated
+
+- **Execution Time vs Number of Threads**
+  
+  ![Execution Time](graphs/md_time.png)
+
+- **Speedup vs Number of Threads**
+  
+  ![Speedup](graphs/md_speedup.png)
 
 ---
 
