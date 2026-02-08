@@ -1,9 +1,6 @@
 UCS645: PARALLEL & DISTRIBUTED COMPUTING
 
-Saif Nalband
 Assignment 2: Performance Evaluation of OpenMP Programs using Parallel
-
-Performance Metrics
 
 Learning Objectives
 After completing this assignment, students will be able to:
