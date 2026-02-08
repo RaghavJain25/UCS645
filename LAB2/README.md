@@ -2,31 +2,21 @@ UCS645: PARALLEL & DISTRIBUTED COMPUTING
 
 Assignment 2: Performance Evaluation of OpenMP Programs using Parallel
 
-Learning Objectives
-
+1.Learning Objectives
 • Implement basic OpenMP parallel programs.
-
 • Measure execution time using omp_get_wtime().
-
 • Compute speedup, efficiency, and cost metrics.
-
 • Understand strong vs weak scaling using Amdahl’s and Gustafson’s
 laws.
-
 • Identify performance bottlenecks such as load imbalance,
 synchronization overhead, false sharing, and memory bandwidth
 saturation.
-
 • Gain introductory exposure to performance profiling tools.
 
-Experimental Environment
-
+2.Experimental Environment
 • Shared-memory multicore CPU.
-
 • Operating System: Linux / Ubuntu (native or virtual machine).
-
 • Compiler: gcc / g++ with OpenMP support.
-
 • Number of threads: 1, 2, 4, 8 (or up to available cores).
 
 🔹 Question 1: Molecular Dynamics – Lennard-Jones Force Calculation
