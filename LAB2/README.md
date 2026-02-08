@@ -41,9 +41,9 @@ Three representative problems from scientific computing and bioinformatics are i
 - **Graph Plotting:** gnuplot  
 - **Compiler Flags:**  
   ```bash
-  -O3 -fopenmp
+  g++ -O3 -fopenmp filename.cpp -o output
 ---
-🔹 Question 1: Molecular Dynamics – Lennard-Jones Force Calculation
+## 🔹 Question 1: Molecular Dynamics – Lennard-Jones Force Calculation
 
 ### Description
 This problem simulates a simplified molecular dynamics system where pairwise forces between particles are computed using the **Lennard-Jones potential**. The computation involves nested loops and shared data updates, making it suitable for studying synchronization overhead in parallel programs.
@@ -88,4 +88,10 @@ This problem simulates **heat diffusion on a 2D grid** using the finite differen
 
 ### Graphs Generated
 - Execution Time vs Number of Threads  
-- Speedup vs Number of Threads  
+- Speedup vs Number of Threads
+
+---
+
+## ✅ Conclusion
+
+This assignment demonstrates how different problem characteristics—such as synchronization overhead, data dependencies, and memory access patterns—affect the scalability of OpenMP programs. Compute-intensive problems like **heat diffusion** show better speedup due to higher parallel efficiency, while algorithms with inherent data dependencies, such as **Smith–Waterman**, exhibit limited scalability. Overall, this assignment provides practical insight into parallel performance evaluation and scalability analysis on multicore systems using OpenMP.
