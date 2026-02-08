@@ -3,6 +3,7 @@ UCS645: PARALLEL & DISTRIBUTED COMPUTING
 Assignment 2: Performance Evaluation of OpenMP Programs using Parallel
 
 1.Learning Objectives
+
 • Implement basic OpenMP parallel programs.
 • Measure execution time using omp_get_wtime().
 • Compute speedup, efficiency, and cost metrics.
