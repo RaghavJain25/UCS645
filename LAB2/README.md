@@ -79,11 +79,11 @@ This problem implements the **Smith–Waterman algorithm** for local DNA sequenc
 
 - **Execution Time vs Number of Threads**
   
-  ![Execution Time](graphs/md_time.png)
+  ![Execution Time](graphs/q2_time.png)
 
 - **Speedup vs Number of Threads**
   
-  ![Speedup](graphs/md_speedup.png)
+  ![Speedup](graphs/q2_speedup.png)
 
 ---
 
@@ -101,11 +101,11 @@ This problem simulates **heat diffusion on a 2D grid** using the finite differen
 
 - **Execution Time vs Number of Threads**
   
-  ![Execution Time](graphs/md_time.png)
+  ![Execution Time](graphs/q3_time.png)
 
 - **Speedup vs Number of Threads**
   
-  ![Speedup](graphs/md_speedup.png)
+  ![Speedup](graphs/q3_speedup.png)
 
 ---
 
