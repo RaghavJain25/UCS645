@@ -1,67 +1,187 @@
-⚡ High-Performance Correlation Matrix Computation
-UCS645: Parallel and Distributed Computing | Lab Assignment 3
-This project implements a high-performance engine to compute the Pearson Correlation Coefficient for matrix row pairs. By leveraging OpenMP, SIMD vectorization, and algorithmic pre-normalization, the implementation achieves a peak throughput of 16.97 GFLOPS.
+# 🚀 Optimized Correlation Matrix Engine
 
-🚀 Performance Highlights (500×500 Matrix)
-Configuration	Throughput (GFLOPS)	Speedup	Efficiency	Status
-Sequential Baseline	4.49	1.00x	100%	Reference
-OpenMP (2 Threads)	9.16	2.01x	100.5%	Ideal Scaling
-OpenMP (4 Threads)	16.97	3.73x	93.4%	⭐ Peak Performance
-OpenMP (8 Threads)	11.34	2.53x	31.7%	Oversubscribed
-🛠️ Optimization Stack
-1. Algorithmic: Pre-Normalization Strategy
-Instead of calculating correlation for every pair using the standard 
-O
-(
-N
-2
-)
- formula, we pre-normalize the entire matrix (
-m
-e
-a
-n
-=
-0
-, 
-s
-t
-d
-d
-e
-v
-=
-1
-).
+**Course:** UCS645 – Parallel & Distributed Computing  
+**Lab Assignment 3**
 
-Impact: Reduces the core correlation logic to a simple Dot Product, significantly lowering the number of operations inside the hot loop.
-2. Parallelism: OpenMP Orchestration
-Nested Loop Collapsing: Used #pragma omp parallel for collapse(2) to flatten the triangular iteration space, providing a larger pool of work for threads.
-Dynamic Load Balancing: Implemented schedule(dynamic) to handle the decreasing workload of the lower triangular matrix, ensuring no thread remains idle.
-3. Hardware-Level: SIMD & Cache Tuning
-SIMD Vectorization: Leveraged #pragma omp simd to enable AVX/AVX2 instruction sets for the dot product calculations.
-Cache Locality: Optimized memory access patterns using row-major traversal to maximize L1/L2 cache hit rates.
-📊 Deep-Dive Analysis
-The 4-Thread "Sweet Spot"
-As a Bachelor of Engineering student at Thapar, it's critical to note the hardware-software ceiling. While the system reports 8 logical cores, peak efficiency was reached at 4 threads. [Image of a Parallel Efficiency graph showing the drop-off after the physical core limit]
+---
 
-Observation: Scaling is near-linear up to 4 threads (
-93.4
- efficiency).
-Bottleneck: At 8 threads, performance degrades to 
-31.7
- efficiency. This suggests Memory Bandwidth Saturation and contention between Hyper-Threads (SMT) sharing execution units.
-⚙️ Compilation & Benchmarking
-Environment
-OS: WSL2 (Ubuntu 22.04)
-Compiler: g++ 11.4.0
-Flags: -O3 -fopenmp -ffast-math -march=native
-Build and Run
-# Clone and Navigate
-cd lab_3/
+## 📌 Overview
 
-# Build with Aggressive Optimization
-make clean && make
+This project develops an optimized system to compute the **Pearson Correlation Coefficient** between all pairs of rows in a matrix.
 
-# Execute Benchmark (Row x Column)
-./correlate 500 500
+The focus of this implementation is performance engineering through:
+
+- Algorithmic restructuring
+- Multi-threading with OpenMP
+- SIMD-level vectorization
+- Cache-aware memory access
+- Empirical benchmarking using `perf`
+
+The optimized implementation achieves a measured peak throughput of **16.97 GFLOPS** on a 500 × 500 matrix.
+
+---
+
+## 📊 Performance Summary (500 × 500 Matrix)
+
+| Execution Mode        | GFLOPS | Speedup | Parallel Efficiency | Remarks |
+|-----------------------|--------|----------|----------------------|----------|
+| Sequential Version    | 4.49   | 1.00×    | 100%                 | Baseline |
+| OpenMP (2 Threads)    | 9.16   | 2.01×    | ~100%                | Ideal Scaling |
+| OpenMP (4 Threads)    | 16.97  | 3.73×    | 93.4%                | Best Result |
+| OpenMP (8 Threads)    | 11.34  | 2.53×    | 31.7%                | Resource Contention |
+
+---
+
+## 🧠 Optimization Approach
+
+### 1️⃣ Pre-Processing Strategy (Normalization First)
+
+Instead of repeatedly applying the full Pearson formula for each row pair,  
+the matrix is normalized in advance:
+
+- Each row is mean-centered
+- Each row is scaled to unit variance
+
+After this transformation, correlation reduces to a **simple dot product**, which dramatically simplifies the inner loop.
+
+### Why This Matters
+
+- Reduces arithmetic redundancy
+- Improves vectorization potential
+- Minimizes hot-loop complexity
+- Enhances numerical stability
+
+---
+
+### 2️⃣ Parallel Execution using OpenMP
+
+Parallelization is applied across the correlation computation phase.
+
+Key design choices:
+
+- Flattened iteration space for improved workload distribution
+- Dynamic scheduling to handle uneven triangular workload
+- Thread count experimentation to determine optimal scaling
+
+Example pragma used:
+
+```cpp
+#pragma omp parallel for schedule(dynamic)
+```
+
+---
+
+### 3️⃣ Micro-Architectural Tuning
+
+To extract maximum CPU performance:
+
+- Enabled aggressive optimization flags
+- Used `#pragma omp simd` for vectorized dot products
+- Ensured row-major traversal to preserve spatial locality
+- Reduced unnecessary memory loads
+
+This combination helps maximize:
+
+- L1/L2 cache utilization
+- Instruction-level parallelism
+- AVX/AVX2 vector throughput
+
+---
+
+## 🔎 Scalability Analysis
+
+Although the system exposes 8 logical cores, experimental results indicate optimal performance at 4 threads.
+
+### Observations
+
+- Near-linear scaling up to 4 threads (~93% efficiency)
+- Noticeable degradation at 8 threads
+- Efficiency drop suggests memory bandwidth limitations
+- Hyper-threading contention affects compute units
+
+This highlights the importance of understanding hardware topology when designing parallel programs.
+
+---
+
+## ⚙️ Build Environment
+
+- **Operating System:** WSL2 (Ubuntu 22.04)
+- **Compiler:** g++ 11.4.0
+- **Optimization Flags:**
+
+```
+-O3 -fopenmp -ffast-math -march=native
+```
+
+---
+
+## 🏗️ Compilation
+
+```
+make
+```
+
+---
+
+## ▶️ Execution
+
+```
+./correlation <rows> <cols>
+```
+
+Example:
+
+```
+./correlation 500 500
+```
+
+---
+
+## 📈 Performance Measurement
+
+Sequential run:
+
+```
+OMP_NUM_THREADS=1 perf stat ./correlation 500 500
+```
+
+Parallel run:
+
+```
+OMP_NUM_THREADS=4 perf stat ./correlation 500 500
+```
+
+---
+
+## 📐 Performance Metrics
+
+Speedup is computed as:
+
+```
+Speedup = Sequential_Time / Parallel_Time
+```
+
+Parallel efficiency:
+
+```
+Efficiency = Speedup / Number_of_Threads
+```
+
+---
+
+## 🏁 Final Remarks
+
+This implementation demonstrates:
+
+- Effective algorithm redesign
+- Practical multi-threaded scaling
+- Hardware-conscious optimization
+- Quantitative performance evaluation
+
+The results confirm that peak efficiency is bounded by hardware constraints rather than algorithmic limitations.
+
+---
+
+**UCS645 – Parallel & Distributed Computing**  
+Bachelor of Engineering  
+Thapar Institute of Engineering & Technology
