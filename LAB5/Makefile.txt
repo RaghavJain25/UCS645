@@ -1,0 +1,9 @@
+all:
+	mpic++ q1_daxpy.cpp -o q1
+	mpic++ q2_broadcast.cpp -o q2
+	mpic++ q3_dotproduct.cpp -o q3
+	mpic++ q4_primes.cpp -o q4
+	mpic++ q5_perfect.cpp -o q5
+
+clean:
+	rm -f q1 q2 q3 q4 q5
