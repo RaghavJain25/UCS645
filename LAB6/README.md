@@ -1,8 +1,8 @@
-# 🚀 CUDA Assignment 6 – Complete Lab Report
+#  CUDA Assignment 6 – Complete Lab Report
 
 ---
 
-## 📌 Aim
+## Aim
 
 To study CUDA programming and implement:
 
@@ -12,7 +12,7 @@ To study CUDA programming and implement:
 
 ---
 
-## 🧠 Theory
+##  Theory
 
 CUDA (Compute Unified Device Architecture) is a parallel computing platform that enables GPUs to perform general-purpose computation. It uses a hierarchy of:
 
@@ -22,11 +22,11 @@ CUDA (Compute Unified Device Architecture) is a parallel computing platform that
 
 ---
 
-# 🔹 PART A: DEVICE QUERY
+# PART A: DEVICE QUERY
 
 ---
 
-## 📘 Answers
+##  Answers
 
 ### 1. Architecture & Compute Capability
 
@@ -94,11 +94,11 @@ Supported (depends on GPU)
 
 ---
 
-# 🔹 PART B: ARRAY SUM USING CUDA
+#  PART B: ARRAY SUM USING CUDA
 
 ---
 
-## 🧾 Steps Performed
+##  Steps Performed
 
 1. Allocate device memory
 2. Copy data to GPU
@@ -109,12 +109,12 @@ Supported (depends on GPU)
 
 ---
 
-# 🔹 PART C: MATRIX ADDITION
+#  PART C: MATRIX ADDITION
 
 
 ---
 
-## 📘 Answers
+##  Answers
 
 ### 1. Floating Operations
 
@@ -140,7 +140,7 @@ N × N
 
 ---
 
-# 📊 Results
+#  Results
 
 * Correct GPU execution observed
 * Faster than CPU for large inputs
@@ -148,7 +148,7 @@ N × N
 
 ---
 
-# ⚠️ Challenges
+#  Challenges
 
 * CUDA installation
 * Debugging kernels
@@ -156,7 +156,7 @@ N × N
 
 ---
 
-# 💡 Conclusion
+#  Conclusion
 
 CUDA allows efficient parallel execution on GPU. This assignment demonstrated:
 
