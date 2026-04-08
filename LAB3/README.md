@@ -1,11 +1,8 @@
-# 🚀 Optimized Correlation Matrix Engine
-
-**Course:** UCS645 – Parallel & Distributed Computing  
-**Lab Assignment 3**
+#  Optimized Correlation Matrix Engine
 
 ---
 
-## 📌 Overview
+##  Overview
 
 This project develops an optimized system to compute the **Pearson Correlation Coefficient** between all pairs of rows in a matrix.
 
@@ -21,7 +18,7 @@ The optimized implementation achieves a measured peak throughput of **16.97 GFLO
 
 ---
 
-## 📊 Performance Summary (500 × 500 Matrix)
+## Performance Summary (500 × 500 Matrix)
 
 | Execution Mode        | GFLOPS | Speedup | Parallel Efficiency | Remarks |
 |-----------------------|--------|----------|----------------------|----------|
@@ -32,9 +29,9 @@ The optimized implementation achieves a measured peak throughput of **16.97 GFLO
 
 ---
 
-## 🧠 Optimization Approach
+##  Optimization Approach
 
-### 1️⃣ Pre-Processing Strategy (Normalization First)
+### 1️ Pre-Processing Strategy (Normalization First)
 
 Instead of repeatedly applying the full Pearson formula for each row pair,  
 the matrix is normalized in advance:
@@ -53,7 +50,7 @@ After this transformation, correlation reduces to a **simple dot product**, whic
 
 ---
 
-### 2️⃣ Parallel Execution using OpenMP
+### 2️ Parallel Execution using OpenMP
 
 Parallelization is applied across the correlation computation phase.
 
@@ -71,7 +68,7 @@ Example pragma used:
 
 ---
 
-### 3️⃣ Micro-Architectural Tuning
+### 3️ Micro-Architectural Tuning
 
 To extract maximum CPU performance:
 
@@ -88,7 +85,7 @@ This combination helps maximize:
 
 ---
 
-## 🔎 Scalability Analysis
+##  Scalability Analysis
 
 Although the system exposes 8 logical cores, experimental results indicate optimal performance at 4 threads.
 
@@ -103,7 +100,7 @@ This highlights the importance of understanding hardware topology when designing
 
 ---
 
-## ⚙️ Build Environment
+##  Build Environment
 
 - **Operating System:** WSL2 (Ubuntu 22.04)
 - **Compiler:** g++ 11.4.0
@@ -115,7 +112,7 @@ This highlights the importance of understanding hardware topology when designing
 
 ---
 
-## 🏗️ Compilation
+##  Compilation
 
 ```
 make
@@ -123,7 +120,7 @@ make
 
 ---
 
-## ▶️ Execution
+##  Execution
 
 ```
 ./correlation <rows> <cols>
@@ -137,7 +134,7 @@ Example:
 
 ---
 
-## 📈 Performance Measurement
+##  Performance Measurement
 
 Sequential run:
 
@@ -153,7 +150,7 @@ OMP_NUM_THREADS=4 perf stat ./correlation 500 500
 
 ---
 
-## 📐 Performance Metrics
+##  Performance Metrics
 
 Speedup is computed as:
 
@@ -169,7 +166,7 @@ Efficiency = Speedup / Number_of_Threads
 
 ---
 
-## 🏁 Final Remarks
+##  Final Remarks
 
 This implementation demonstrates:
 
@@ -181,7 +178,3 @@ This implementation demonstrates:
 The results confirm that peak efficiency is bounded by hardware constraints rather than algorithmic limitations.
 
 ---
-
-**UCS645 – Parallel & Distributed Computing**  
-Bachelor of Engineering  
-Thapar Institute of Engineering & Technology
