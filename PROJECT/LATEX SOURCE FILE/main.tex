@@ -1,0 +1,235 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+
+\geometry{margin=1in}
+\setstretch{1.4}
+
+\begin{document}
+
+%================ TITLE PAGE =================%
+\begin{titlepage}
+\centering
+
+{\Huge \textbf{Hybrid CPU–GPU Based Real-Time Crowd Simulation}}\\[0.5cm]
+
+{\Large A Project Component for}\\
+{\Large \textbf{Parallel and Distributed Computing (UCS645)}}\\[1.5cm]
+
+\textbf{By}\\[0.5cm]
+
+\begin{tabular}{ll}
+1. Narhar Singh & 102483046 \\
+2. Raghav Jain & 102483049 \\
+3. Harkirat Singh  & 102317074 \\
+\end{tabular}
+
+\vspace{1.5cm}
+
+\textbf{Under the guidance of}\\
+Dr. Saif Nalband\\
+(Assistant Professor, DCSE)\\
+\begin{figure}[h]
+\centering
+\includegraphics[width=70mm, height=40mm]{"tietlogo.jpg"}
+\label{fig:images}
+\end{figure}
+
+DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING\\
+THAPAR INSTITUTE OF ENGINEERING AND TECHNOLOGY\\
+(Deemed to be University)\\
+PATIALA - 147004\\[1cm]
+
+\textbf{April, 2026}
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%================ INTRODUCTION =================%
+\chapter{Introduction}
+
+\section{Background}
+
+The simulation of crowd dynamics is a fundamental problem in computational science with wide-ranging applications in pedestrian flow analysis, evacuation planning, swarm robotics, and intelligent transportation systems. These simulations aim to replicate realistic human movement patterns by modeling individuals as autonomous agents interacting with their environment.
+
+A key challenge in such simulations arises from the computational complexity associated with agent interactions. Each agent must continuously evaluate its surroundings and adjust its behavior accordingly, leading to an overall computational complexity that grows quadratically with the number of agents.
+
+Traditional CPU-based implementations struggle to maintain real-time performance under such conditions. This limitation necessitates the adoption of parallel computing paradigms capable of handling large-scale simulations efficiently.
+
+\section{Introduction to Problem Statement}
+
+The primary problem addressed in this work is the development of a scalable and efficient simulation framework capable of handling thousands of agents in real time. Each agent must:
+\begin{itemize}
+\item Navigate towards designated exit points
+\item Avoid collisions with other agents and obstacles
+\item Exhibit realistic crowd behavior
+\end{itemize}
+
+The challenge lies in balancing computational efficiency with behavioral realism. To address this, a hybrid CPU--GPU architecture is proposed, wherein computationally intensive tasks are offloaded to the GPU.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{Figure1.jpeg}
+\caption{Conceptual Representation of CPU vs GPU Parallel Processing}
+\end{figure}
+
+As highlighted in the template, GPUs follow a throughput-oriented design philosophy, enabling massive parallel execution, unlike CPUs which are optimized for low-latency sequential processing.
+
+%================ LITERATURE REVIEW =================%
+\chapter{Literature Review}
+
+The Boids model, introduced by Reynolds (1987), forms the foundation of most crowd simulation systems. It models collective behavior using three fundamental rules: separation, alignment, and cohesion.
+
+Subsequent research has explored optimization techniques for scaling such simulations. GPU-based implementations using CUDA have demonstrated significant improvements in performance by parallelizing agent updates.
+
+However, many existing systems either lack real-time responsiveness or fail to integrate efficient hybrid architectures combining CPU and GPU capabilities.
+
+\begin{table}[h]
+\centering
+\caption{Summary of Literature Review}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Reference & Approach & Contribution & Limitation \\
+\hline
+Reynolds (1987) & Boids Model & Emergent behavior & Not scalable \\
+\hline
+CUDA Research & GPU Parallelism & High speedup & Memory overhead \\
+\hline
+Agent Systems & Crowd Modeling & Realistic simulation & High complexity \\
+\hline
+\end{tabular}
+\end{table}
+
+%================ RESEARCH GAPS =================%
+\chapter{Research Gaps}
+
+Despite notable advancements in crowd simulation techniques, several limitations persist that directly affect the efficiency and realism of large-scale evacuation systems. One of the primary challenges lies in the limited scalability of traditional CPU-based implementations. Most existing models rely on sequential processing, which becomes increasingly inefficient as the number of agents grows. In dense crowd scenarios, particularly near exits where bottlenecks occur, the computational load increases significantly due to the need for continuous interaction calculations between agents. This makes it difficult to achieve real-time performance using conventional approaches.
+
+Another important gap is related to the underutilization of GPU resources in many existing systems. Although GPU-based methods have been explored, they often suffer from inefficient memory usage, thread divergence, and excessive data transfer between CPU and GPU. Additionally, many models fail to balance computational efficiency with behavioral realism, limiting their ability to simulate phenomena such as congestion, lane formation, and density variations effectively. These challenges highlight the need for a hybrid CPU–GPU approach that can efficiently manage large-scale simulations while maintaining realistic crowd behavior, which is the focus of this project.
+
+%================ PROBLEM FORMULATION =================%
+\chapter{Problem Formulation}
+
+The system models a set of $N$ agents in a 2D environment. Each agent's motion is governed by interaction forces derived from neighboring agents.
+
+The total force acting on an agent is given by:
+
+\[
+F_i = \sum_{j=1}^{N} f(d_{ij})
+\]
+
+where:
+\begin{itemize}
+\item $F_i$ represents the resultant force on agent $i$
+\item $d_{ij}$ denotes the distance between agents $i$ and $j$
+\end{itemize}
+
+The objective is to compute these interactions efficiently for all agents in real time using parallel processing.
+
+%================ OBJECTIVES =================%
+\chapter{Objectives}
+
+The primary objective of this project is to design and develop a scalable crowd exit simulation system capable of handling thousands of agents in real time. The system aims to accurately model evacuation scenarios where agents must navigate toward exits while avoiding collisions and adapting to dynamic crowd conditions. Achieving this requires a balance between computational efficiency and realistic behavior, ensuring that the simulation remains both responsive and meaningful for analysis.
+
+Another key objective is to leverage GPU-based parallel computation using CUDA to accelerate the most computationally intensive tasks within the simulation. By adopting a hybrid CPU–GPU architecture, the project distributes responsibilities such that the GPU handles agent interactions and motion updates, while the CPU manages rendering and user interaction. This approach is intended to improve overall system performance, enhance scalability, and enable the simulation of complex crowd dynamics such as bottleneck formation and density-based flow patterns.
+
+%================ METHODOLOGY =================%
+\chapter{Methodology}
+
+\section{Boids Model Implementation}
+
+Each agent follows three fundamental rules:
+
+\begin{itemize}
+\item Separation: Avoid collisions
+\item Alignment: Match velocity with neighbors
+\item Cohesion: Move toward group center
+\end{itemize}
+
+\section{Mathematical Model}
+
+The velocity update equation is:
+
+\[
+v_i(t+1) = v_i(t) + w_s S_i + w_a A_i + w_c C_i
+\]
+
+where:
+\begin{itemize}
+\item $S_i$ = Separation vector
+\item $A_i$ = Alignment vector
+\item $C_i$ = Cohesion vector
+\end{itemize}
+
+\section{Algorithm}
+
+\textbf{Algorithm 1: Parallel Boids Update}
+
+\begin{verbatim}
+for each agent i in parallel:
+    compute neighbors
+    calculate separation, alignment, cohesion
+    update velocity
+    update position
+\end{verbatim}
+
+\section{Hybrid Execution Model}
+
+\begin{itemize}
+\item GPU: Handles parallel computation of agent interactions
+\item CPU: Manages control flow, rendering, and user input
+\end{itemize}
+
+%================ DATASETS =================%
+\chapter{Datasets}
+
+This simulation uses synthetic data generated at runtime. Agents are initialized with random positions and velocities within a bounded 2D environment.
+
+\begin{table}[h]
+\centering
+\caption{Simulation Parameters}
+\begin{tabular}{|c|c|}
+\hline
+Parameter & Value \\
+\hline
+Number of Agents & 100 -- 20000 \\
+Simulation Space & 2D Grid \\
+Exit Points & Multiple \\
+Time Step & Fixed \\
+\hline
+\end{tabular}
+\end{table}
+
+%================ RESULTS =================%
+\chapter{Results and Discussion}
+
+The performance of the proposed crowd exit simulation system demonstrates the effectiveness of GPU-based parallelization in handling large-scale agent populations. The implementation successfully maintains real-time performance even as the number of agents increases, which is a significant improvement over traditional CPU-based approaches. The reduction in computation time per simulation step is primarily due to the parallel execution of agent updates on the GPU, allowing multiple agents to be processed simultaneously.
+
+In addition to performance improvements, the simulation effectively captures realistic crowd behaviors such as congestion near exits, lane formation during movement, and density variations across the environment. The use of density-based color mapping further enhances visualization by clearly indicating areas of high and low crowd concentration. The results confirm that the hybrid CPU–GPU architecture not only improves computational efficiency but also preserves the realism of crowd dynamics, making the system suitable for practical applications in evacuation analysis and crowd management.
+
+%================ CONCLUSION =================%
+\chapter{Conclusion}
+
+This project demonstrates the effectiveness of hybrid CPU--GPU architectures in solving computationally intensive problems such as crowd simulation. By leveraging parallel computing principles, the system achieves scalability, efficiency, and real-time performance.
+
+The proposed approach provides a robust framework for future research in large-scale simulations and highlights the importance of heterogeneous computing in modern applications.
+
+%================ REFERENCES =================%
+\begin{thebibliography}{9}
+
+\bibitem{boids}
+C. Reynolds, “Flocks, Herds, and Schools: A Distributed Behavioral Model,” 1987.
+
+\bibitem{cuda}
+D. Kirk and W. Hwu, Programming Massively Parallel Processors, 2016.
+
+\end{thebibliography}
+
+\end{document}
